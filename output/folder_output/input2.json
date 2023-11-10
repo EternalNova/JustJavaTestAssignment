@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Яблоко",
+    "price": "$1",
+    "description": "Красное",
+    "category": "food"
+  },
+  {
+    "name": "Банан",
+    "price": "$2",
+    "description": "Спелый",
+    "category": "food"
+  }
+]

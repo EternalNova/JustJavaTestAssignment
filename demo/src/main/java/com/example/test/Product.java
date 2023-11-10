@@ -2,7 +2,6 @@ package com.example.test;
 
 import java.io.Serializable;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Product implements Serializable {

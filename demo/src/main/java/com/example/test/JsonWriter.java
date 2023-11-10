@@ -1,10 +1,7 @@
 package com.example.test;
 
 import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,7 +22,7 @@ public class JsonWriter {
         this.fileName = fileName;
         this.fullPath = Paths.get(outputPath, fileName);
         try{
-            Files.createDirectories(this.fullPath);
+            Files.createDirectories(Paths.get(this.outputPath));
         }   
         catch (IOException e){
             e.printStackTrace();
