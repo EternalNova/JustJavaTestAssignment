@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Ноутбук",
+    "price": "$750",
+    "description": "Процессор Intel Core i5",
+    "category": "electronics"
+  },
+  {
+    "name": "Смартфон",
+    "price": "$880",
+    "description": "Популярный смартфон",
+    "category": "electronics"
+  }
+]
