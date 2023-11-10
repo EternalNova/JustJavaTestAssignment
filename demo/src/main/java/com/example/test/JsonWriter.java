@@ -1,7 +1,11 @@
 package com.example.test;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,7 +36,8 @@ public class JsonWriter {
     }
 
     public void writeToJson(List<Product> products) {
-        try (FileWriter writer = new FileWriter(this.fullPath.toString())) {
+        
+        try (BufferedWriter writer = Files.newBufferedWriter(this.fullPath, StandardCharsets.UTF_8)) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             gson.toJson(products, writer);
         } catch (IOException e) {

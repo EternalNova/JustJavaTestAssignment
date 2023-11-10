@@ -1,14 +1,14 @@
 [
   {
-    "name": "Ноутбук",
+    "name": "РќРѕСѓС‚Р±СѓРє",
     "price": "$750",
-    "description": "Процессор Intel Core i5",
+    "description": "РџСЂРѕС†РµСЃСЃРѕСЂ Intel Core i5",
     "category": "electronics"
   },
   {
-    "name": "Смартфон",
+    "name": "РЎРјР°СЂС‚С„РѕРЅ",
     "price": "$880",
-    "description": "Популярный смартфон",
+    "description": "РџРѕРїСѓР»СЏСЂРЅС‹Р№ СЃРјР°СЂС‚С„РѕРЅ",
     "category": "electronics"
   }
 ]
