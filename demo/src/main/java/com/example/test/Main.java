@@ -29,6 +29,7 @@ public class Main {
             try (Stream<Path> paths = Files.walk(Paths.get(input_folder))) {
                 paths
                     .filter(Files::isRegularFile)
+                    .filter(path -> path.endsWith(".xhtml"))
                     .forEach(
                         path -> {
                             List<Product> products = XHTMLParser.parse(path.toString());
