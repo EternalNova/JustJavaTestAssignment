@@ -5,11 +5,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
+import com.example.test.Product.GroupedProduct;
 import com.example.test.Product.JsonWriter;
 import com.example.test.Product.Product;
 import com.example.test.Product.ProductFilter;
+import com.example.test.Product.ProductGrouper;
 import com.example.test.Product.XHTMLParser;
 
 public class Main {
@@ -50,10 +53,15 @@ public class Main {
 
     public static void proccessFileInput(String inputFile, String outputFolder, String outputFile, String filter, String groupby){
         List<Product> products = XHTMLParser.parse(inputFile);
+        JsonWriter writer = new JsonWriter(outputFolder, outputFile);
         if (!filter.isEmpty()){
             products = ProductFilter.filterProducts(products, filter);
         }
-        JsonWriter writer = new JsonWriter(outputFolder, outputFile);
+        if (!groupby.isEmpty()){
+            Map<String, GroupedProduct> groupedProducts = ProductGrouper.groupProductsByField(products, groupby);
+            writer.writeToJson(groupedProducts);
+            return;
+        }
         writer.writeToJson(products);
     }
 

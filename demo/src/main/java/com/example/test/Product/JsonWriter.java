@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -45,4 +46,17 @@ public class JsonWriter {
             e.printStackTrace();
         }
     }
+
+    public void writeToJson(Map<String, GroupedProduct> groupedProducts){
+        try (BufferedWriter writer = Files.newBufferedWriter(this.fullPath, StandardCharsets.UTF_8)) {
+            Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+            .create();
+            gson.toJson(groupedProducts, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

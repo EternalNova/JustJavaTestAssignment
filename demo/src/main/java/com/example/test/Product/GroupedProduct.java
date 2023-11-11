@@ -4,10 +4,15 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.example.test.Product.Product.Currency;
+import com.google.gson.annotations.SerializedName;
 
 public class GroupedProduct {
+    
+    @SerializedName("Количество заказов")
     private int totalOrders;
+    @SerializedName("Сумма всех заказов (в USD)")
     private BigDecimal totalPriceSum;
+    @SerializedName("Заказы")
     public List<Product> productList;
 
     // public GroupedProduct() {
