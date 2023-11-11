@@ -7,65 +7,54 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.BasicParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
+import com.example.test.Product.JsonWriter;
+import com.example.test.Product.Product;
+import com.example.test.Product.ProductFilter;
+import com.example.test.Product.XHTMLParser;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
 
-        Options options = new Options();
-        
-        Option input_file_Option = new Option("I", "input_file", true, "input file path");
-        options.addOption(input_file_Option);
-        Option input_folder_Option = new Option("F", "input_folder", true, "input folder path");
-        options.addOption(input_folder_Option);
-        Option output_folder_Option = new Option("O", "output_folder", true, "output folder path");
-        options.addOption(output_folder_Option);
+        MainConfig config = new MainConfig(args);
 
-        CommandLineParser parser = new BasicParser();
-        HelpFormatter formatter = new HelpFormatter();
-        CommandLine cmd = null;
+        final String inner_output_folder = config.output_folder;
 
-        try {
-            cmd = parser.parse(options, args);
-        } catch (ParseException e) {
-            System.out.println(e.getMessage());
-            formatter.printHelp("utility-name", options);
-
-            System.exit(1);
-        }
-
-        Boolean is_folder_input = cmd.hasOption("input_folder");
-        String input_folder = cmd.getOptionValue("input_folder", "./demo/input");
-        String output_folder = cmd.getOptionValue("output_folder", "./output");
-        String input_file = cmd.getOptionValue("input_file", "./demo/input/input.xhtml");
-        
-        final String inner_output_folder = output_folder;
-
-        if (is_folder_input){
-            try (Stream<Path> paths = Files.walk(Paths.get(input_folder))) {
+        if (config.is_folder_input){
+            try (Stream<Path> paths = Files.walk(Paths.get(config.input_folder))) {
                 paths
                     .filter(Files::isRegularFile)
                     .filter(path -> path.getFileName().toString().endsWith(".xhtml"))
                     .forEach(
-                        path -> {
-                            List<Product> products = XHTMLParser.parse(path.toString());
-                            JsonWriter writer = new JsonWriter(inner_output_folder, path.getFileName().toString().replace(".xhtml", ".json"));
-                            writer.writeToJson(products);
-                        }
+                        path -> proccessFileInput(
+                            path.toString(), 
+                            inner_output_folder, 
+                            path.getFileName().toString().replace(".xhtml", ".json"),
+                            config.filter_equation,
+                            config.groupbyField
+                        )
                     );
             } 
         }
         else{
-            List<Product> products = XHTMLParser.parse(input_file);
-            JsonWriter writer = new JsonWriter(output_folder, "output0.json");
-            writer.writeToJson(products);
+            proccessFileInput(
+                config.input_file, 
+                inner_output_folder, 
+                Paths.get(config.input_file).getFileName().toString().replace(".xhtml", ".json"),
+                config.filter_equation,
+                config.groupbyField
+            );
         }
 
     }
+
+    public static void proccessFileInput(String inputFile, String outputFolder, String outputFile, String filter, String groupby){
+        List<Product> products = XHTMLParser.parse(inputFile);
+        if (!filter.isEmpty()){
+            products = ProductFilter.filterProducts(products, filter);
+        }
+        JsonWriter writer = new JsonWriter(outputFolder, outputFile);
+        writer.writeToJson(products);
+    }
+
 }

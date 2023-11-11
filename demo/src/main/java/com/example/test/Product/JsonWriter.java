@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.Product;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -35,7 +36,10 @@ public class JsonWriter {
     public void writeToJson(List<Product> products) {
         
         try (BufferedWriter writer = Files.newBufferedWriter(this.fullPath, StandardCharsets.UTF_8)) {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+            .create();
             gson.toJson(products, writer);
         } catch (IOException e) {
             e.printStackTrace();
