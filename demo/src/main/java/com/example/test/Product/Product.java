@@ -7,23 +7,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Locale;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.example.test.Currency.Currency;
 import com.google.gson.annotations.SerializedName;
-import java.lang.reflect.Type;
 
 public class Product implements Serializable {
 
-    public enum Currency{
-        USD,
-        RUB
-    }
-    
     private transient HashMap<String, Currency> currencyMap = new HashMap<String, Currency>(){{
         put("USD", Currency.USD);
         put("RUB", Currency.RUB);
+        put("EUR", Currency.EUR);
     }};
 
     @SerializedName("Название товара")
@@ -78,11 +70,4 @@ public class Product implements Serializable {
         this.date = LocalDate.parse(date, dtf);
     }
 
-}
-
-class LocalDateAdapter implements JsonSerializer<LocalDate> {
-
-    public JsonElement serialize(LocalDate date, Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
-    }
 }

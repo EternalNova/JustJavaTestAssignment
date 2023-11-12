@@ -9,12 +9,12 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 public class MainConfig {
-    Boolean is_folder_input = true;
-    String input_folder;
-    String output_folder;
-    String input_file;
-    String filter_equation;
-    String groupbyField;
+    public Boolean is_folder_input = true;
+    public String input_folder;
+    public String output_folder;
+    public String input_file;
+    public String filter_equation;
+    public String groupbyField;
 
     public MainConfig(String[] args){
         
