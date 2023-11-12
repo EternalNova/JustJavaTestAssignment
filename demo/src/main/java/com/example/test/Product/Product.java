@@ -18,6 +18,9 @@ public class Product implements Serializable {
         put("EUR", Currency.EUR);
     }};
 
+    @SerializedName("ID")
+    public Integer id;
+
     @SerializedName("Название товара")
     public String name;
 
@@ -60,7 +63,8 @@ public class Product implements Serializable {
         return date;
     }
 
-    public Product(String name, String price, String currency, String category, String count, String store, String date) {
+    public Product(Integer id, String name, String price, String currency, String category, String count, String store, String date) {
+        this.id = id;
         this.name = name;
         this.price.put(currencyMap.get(currency), new BigDecimal(price));
         this.category = category;

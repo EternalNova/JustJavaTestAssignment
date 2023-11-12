@@ -27,6 +27,7 @@ public class GroupedProduct {
         this.totalPriceSum = new HashMap<Currency, BigDecimal>(); 
         for (Currency currency : Currency.values()) {
             BigDecimal totalPriceCurrency = productList.stream()
+            .filter(product -> product.price.containsKey(currency))
             .map(product -> product.price.get(currency).multiply(BigDecimal.valueOf(product.count)))
             .reduce(BigDecimal.ZERO, BigDecimal::add);
             totalPriceSum.put(currency, totalPriceCurrency);
