@@ -1,9 +1,11 @@
-package com.example.test.Product;
+package com.example.test.FileProcessing;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import com.example.test.Product.Product;
 
 import java.io.File;
 import java.io.IOException;

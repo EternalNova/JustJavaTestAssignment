@@ -9,17 +9,19 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 public class MainConfig {
-    Boolean is_folder_input = true;
-    String input_folder;
-    String output_folder;
-    String input_file;
-    String filter_equation;
-    String groupbyField;
+    public Boolean is_folder_input = true;
+    public String input_folder;
+    public String output_folder;
+    public String input_file;
+    public String filter_equation;
+    public String groupbyField;
+
+    private CommandLineParser parser = new BasicParser();
+    private HelpFormatter formatter = new HelpFormatter();
+    private Options options = new Options();
 
     public MainConfig(String[] args){
-        
-        Options options = new Options();
-        
+                
         Option input_file_Option = new Option("I", "input_file", true, "input file path");
         options.addOption(input_file_Option);
         Option input_folder_Option = new Option("F", "input_folder", true, "input folder path");
@@ -31,8 +33,6 @@ public class MainConfig {
         Option groupby_Option = new Option("groupby", "groupby", true, "Group By Field");
         options.addOption(groupby_Option);
 
-        CommandLineParser parser = new BasicParser();
-        HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd = null;
 
         try {
@@ -50,6 +50,10 @@ public class MainConfig {
         this.input_file = cmd.getOptionValue("input_file", "./demo/input/input.xhtml");
         this.filter_equation = cmd.getOptionValue("filter", "");
         this.groupbyField = cmd.getOptionValue("groupby", "");
+    }
+
+    public void printHelpMessage(){
+        formatter.printHelp("order", options);
     }
 
 }

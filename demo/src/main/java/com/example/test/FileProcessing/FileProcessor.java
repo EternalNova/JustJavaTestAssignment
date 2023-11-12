@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.FileProcessing;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import com.example.test.MainConfig;
+import com.example.test.Currency.CurrencyConverter;
 import com.example.test.Product.GroupedProduct;
-import com.example.test.Product.JsonWriter;
 import com.example.test.Product.Product;
 import com.example.test.Product.ProductFilter;
 import com.example.test.Product.ProductGrouper;
-import com.example.test.Product.XHTMLParser;
 
 public class FileProcessor {
     MainConfig config;
@@ -36,6 +36,7 @@ public class FileProcessor {
 
     public void processFileInput(String outputFile){
         List<Product> products = XHTMLParser.parse(this.config.input_file);
+        products.stream().forEach(product -> {CurrencyConverter.convertAll(product.price);});
         JsonWriter writer = new JsonWriter(this.config.output_folder, outputFile);
         if (!config.filter_equation.isEmpty()){
             products = ProductFilter.filterProducts(products, config.filter_equation);

@@ -1,4 +1,4 @@
-package com.example.test.Product;
+package com.example.test.FileProcessing;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+import com.example.test.Product.GroupedProduct;
+import com.example.test.Product.Product;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
