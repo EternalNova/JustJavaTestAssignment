@@ -22,6 +22,7 @@ public class XHTMLParser {
             Elements orderElements = doc.select(".order");
 
             for (Element orderElement : orderElements) {
+                Integer id = Integer.parseInt(orderElement.attr("id"));
                 String name = orderElement.select(".name").text();
                 String price = orderElement.select(".price").text();
                 String currency = orderElement.select(".currency").text();
@@ -29,7 +30,7 @@ public class XHTMLParser {
                 String count = orderElement.select(".count").text();
                 String store = orderElement.select(".store_name").text();
                 String date = orderElement.select(".date").text();
-                Product product = new Product(name, price, currency, category, count, store, date);
+                Product product = new Product(id, name, price, currency, category, count, store, date);
                 products.add(product);
             }
 

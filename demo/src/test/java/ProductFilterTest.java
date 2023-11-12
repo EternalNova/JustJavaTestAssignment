@@ -10,11 +10,11 @@ public class ProductFilterTest {
 
         private List<Product> createTestProducts() {
             List<Product> products = new ArrayList<>();
-            products.add(new Product("Product1", "10.00", "USD", "Category1", "8", "Store1", "01.01.2023"));
-            products.add(new Product("Product2", "15.50", "USD", "Category2", "12", "Store2", "02.01.2023"));
-            products.add(new Product("Product1", "30.00", "USD", "Category1", "3", "Store2", "05.05.2023"));
-            products.add(new Product("Product3", "20.00", "USD", "Category3", "6", "Store3", "03.01.2023"));
-            products.add(new Product("Product4", "25.00", "USD", "Category4", "10", "Store2", "04.01.2023"));
+            products.add(new Product(1, "Product1", "10.00", "USD", "Category1", "8", "Store1", "01.01.2023"));
+            products.add(new Product(2, "Product2", "15.50", "USD", "Category2", "12", "Store2", "02.01.2023"));
+            products.add(new Product(3, "Product1", "30.00", "USD", "Category1", "3", "Store2", "05.05.2023"));
+            products.add(new Product(4, "Product3", "20.00", "USD", "Category3", "6", "Store3", "03.01.2023"));
+            products.add(new Product(5, "Product4", "25.00", "USD", "Category4", "10", "Store2", "04.01.2023"));
             return products;
     }
 
