@@ -13,3 +13,5 @@
 Использование --groupby поле. Доступно name, store, category.
 
 Например --groupby category, Сгруппирует информацию о продажах по каждой категории.
+
+Пример выходного файла - outputExample.json
