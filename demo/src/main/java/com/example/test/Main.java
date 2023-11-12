@@ -11,8 +11,14 @@ public class Main {
         MainConfig config = new MainConfig(args);
 
         FileProcessor fProcessor = new FileProcessor(config);
+        try{
+            fProcessor.processInput();
+        }
+        catch (Exception e){
+            System.out.println(e.getLocalizedMessage());
+            config.printHelpMessage();
+        }
 
-        fProcessor.processInput();
     }
 
 }
