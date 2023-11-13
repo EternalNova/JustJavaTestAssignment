@@ -14,11 +14,11 @@ public class ProductGrouper {
     private static String getFieldValue(Product product, String field) {
         switch (field) {
             case "name":
-                return product.name;
+                return product.getName();
             case "category":
-                return product.category;
+                return product.getCategory();
             case "store":
-                return product.store;
+                return product.getStore();
 
             default:
                 throw new IllegalArgumentException("Unsupported grouping field: " + field);

@@ -16,18 +16,18 @@ import com.example.test.Product.ProductFilter;
 import com.example.test.Product.ProductGrouper;
 
 public class FileProcessor {
-    MainConfig config;
+    private MainConfig config;
 
     public FileProcessor(MainConfig config){
         this.config = config;
     }
 
     public void processInput() throws IOException {
-        if (config.isFolderInput){
+        if (config.getIsFolderInput()){
             processFolderInput();
         } else {
             processFileInput(
-                Paths.get(config.inputFile)
+                Paths.get(config.getInputFile())
                     .getFileName()
                     .toString()
                     .replace(".xhtml", ".json")
@@ -37,17 +37,17 @@ public class FileProcessor {
     }
 
     public void processFileInput(String outputFile){
-        List<Product> products = XHTMLParser.parse(this.config.inputFile);
+        List<Product> products = XHTMLParser.parse(this.config.getInputFile());
         products.stream()
             .forEach(product -> 
-                CurrencyConverter.convertAll(product.price)
+                CurrencyConverter.convertAll(product.getPriceMap())
             );
-        JsonWriter writer = new JsonWriter(this.config.outputFolder, outputFile);
-        if (!config.filterEquation.isEmpty()){
-            products = ProductFilter.filterProducts(products, config.filterEquation);
+        JsonWriter writer = new JsonWriter(this.config.getOutputFolder(), outputFile);
+        if (!config.getFilterEquation().isEmpty()){
+            products = ProductFilter.filterProducts(products, config.getFilterEquation());
         }
-        if (!config.groupByField.isEmpty()){
-            Map<String, GroupedProduct> groupedProducts = ProductGrouper.groupProductsByField(products, config.groupByField);
+        if (!config.getGroupByField().isEmpty()){
+            Map<String, GroupedProduct> groupedProducts = ProductGrouper.groupProductsByField(products, config.getGroupByField());
             writer.writeToJson(groupedProducts);
             return;
         }
@@ -55,7 +55,7 @@ public class FileProcessor {
     }
 
     public void processFolderInput() throws IOException{
-        try (Stream<Path> paths = Files.walk(Paths.get(config.inputFolder))) {
+        try (Stream<Path> paths = Files.walk(Paths.get(config.getInputFolder()))) {
             paths
                 .filter(Files::isRegularFile)
                 .filter(

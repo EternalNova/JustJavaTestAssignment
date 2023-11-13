@@ -9,12 +9,36 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 public class MainConfig {
-    public Boolean isFolderInput;
-    public String inputFolder;
-    public String outputFolder;
-    public String inputFile;
-    public String filterEquation;
-    public String groupByField;
+    private Boolean isFolderInput;
+    public Boolean getIsFolderInput() {
+        return isFolderInput;
+    }
+
+    public String getInputFolder() {
+        return inputFolder;
+    }
+
+    public String getOutputFolder() {
+        return outputFolder;
+    }
+
+    public String getInputFile() {
+        return inputFile;
+    }
+
+    public String getFilterEquation() {
+        return filterEquation;
+    }
+
+    public String getGroupByField() {
+        return groupByField;
+    }
+
+    private String inputFolder;
+    private String outputFolder;
+    private String inputFile;
+    private String filterEquation;
+    private String groupByField;
 
     private CommandLineParser parser = new BasicParser();
     private HelpFormatter formatter = new HelpFormatter();

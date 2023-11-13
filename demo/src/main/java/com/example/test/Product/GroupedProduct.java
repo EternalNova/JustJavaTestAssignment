@@ -14,7 +14,7 @@ public class GroupedProduct {
     @SerializedName("Сумма всех заказов")
     private HashMap<Currency, BigDecimal> totalPriceSum;
     @SerializedName("Заказы")
-    public List<Product> productList;
+    private List<Product> productList;
 
     public GroupedProduct(List<Product> productList){
         this.productList = productList;
@@ -22,8 +22,8 @@ public class GroupedProduct {
         this.totalPriceSum = new HashMap<Currency, BigDecimal>(); 
         for (Currency currency : Currency.values()) {
             BigDecimal totalPriceCurrency = productList.stream()
-                .filter(product -> product.price.containsKey(currency))
-                .map(product -> product.price.get(currency).multiply(BigDecimal.valueOf(product.count)))
+                .filter(product -> product.getPriceMap().containsKey(currency))
+                .map(product -> product.getPrice(currency).multiply(BigDecimal.valueOf(product.getCount())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
             totalPriceSum.put(currency, totalPriceCurrency);
         }

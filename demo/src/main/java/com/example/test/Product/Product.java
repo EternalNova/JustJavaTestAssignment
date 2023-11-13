@@ -19,45 +19,53 @@ public class Product implements Serializable {
     }};
 
     @SerializedName("ID")
-    public Integer id;
+    private Integer id;
 
     @SerializedName("Название товара")
-    public String name;
+    private String name;
 
     public String getName(){
         return name;
     }
 
     @SerializedName("Цена")
-    public HashMap<Currency, BigDecimal> price = new HashMap<Currency, BigDecimal>();
+    private HashMap<Currency, BigDecimal> price = new HashMap<Currency, BigDecimal>();
 
     public BigDecimal getDefaultPrice(){
         return price.get(Currency.USD);
     }
 
+    public BigDecimal getPrice(Currency currency){
+        return price.get(currency);
+    }
+
+    public HashMap<Currency, BigDecimal> getPriceMap(){
+        return price;
+    }
+
     @SerializedName("Категория")
-    public String category;
+    private String category;
 
     public String getCategory(){
         return category;
     }
 
     @SerializedName("Количество")
-    public Integer count;
+    private Integer count;
 
     public Integer getCount(){
         return count;
     }
 
     @SerializedName("Магазин")
-    public String store;
+    private String store;
 
     public String getStore(){
         return store;
     }
 
     @SerializedName("Дата заказа")
-    public LocalDate date;
+    private LocalDate date;
 
     public LocalDate getDate(){
         return date;
