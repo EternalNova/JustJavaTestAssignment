@@ -7,58 +7,40 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
 
-import com.example.test.Product.GroupedProduct;
-import com.example.test.Product.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class JsonWriter {
-    private String outputPath = "./output";
-    private String fileName = "./output0.json";
-
-    private Path fullPath = Paths.get(outputPath, fileName);
+    
+    private Path fullPath;
+    private Logger logger;
 
     public JsonWriter(String outputPath, String fileName){
-        this.outputPath = outputPath;
-        this.fileName = fileName;
         this.fullPath = Paths.get(outputPath, fileName);
+        this.logger = LoggerFactory.getLogger(JsonWriter.class);
         try{
-            Files.createDirectories(Paths.get(this.outputPath));
-        }   
-        catch (IOException e){
-            e.printStackTrace();
+            Files.createDirectories(Paths.get(outputPath));
+        } catch (IOException exception){
+            this.logger.error(exception.getMessage());
         }
     }
 
-    public JsonWriter(){
-    }
-
-    public void writeToJson(List<Product> products) {
+    public void writeToJson(Object data) {
         
         try (BufferedWriter writer = Files.newBufferedWriter(this.fullPath, StandardCharsets.UTF_8)) {
             Gson gson = new GsonBuilder()
-            .setPrettyPrinting()
-            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-            .create();
-            gson.toJson(products, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
+                .setPrettyPrinting()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .create();
+            gson.toJson(data, writer);
+        } catch (IOException exception) {
+            this.logger.error(exception.getMessage());
         }
     }
 
-    public void writeToJson(Map<String, GroupedProduct> groupedProducts){
-        try (BufferedWriter writer = Files.newBufferedWriter(this.fullPath, StandardCharsets.UTF_8)) {
-            Gson gson = new GsonBuilder()
-            .setPrettyPrinting()
-            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-            .create();
-            gson.toJson(groupedProducts, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 }

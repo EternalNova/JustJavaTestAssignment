@@ -4,6 +4,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.example.test.Product.Product;
 
@@ -14,7 +16,9 @@ import java.util.List;
 
 public class XHTMLParser {
     public static List<Product> parse(String filePath) {
-        List<Product> products = new ArrayList<Product>();
+        ArrayList<Product> products = new ArrayList<Product>();
+        
+        Logger logger = LoggerFactory.getLogger(XHTMLParser.class);
 
         try {
             File input = new File(filePath);
@@ -34,8 +38,8 @@ public class XHTMLParser {
                 products.add(product);
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException exception) {
+            logger.error(exception.getMessage());
         }
 
         return products;
