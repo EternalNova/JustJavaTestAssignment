@@ -7,6 +7,8 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MainConfig {
     private Boolean isFolderInput;
@@ -45,7 +47,9 @@ public class MainConfig {
     private Options options = new Options();
 
     public MainConfig(String[] args){
-                
+        
+        Logger logger = LoggerFactory.getLogger(Main.class);
+
         Option inputFileOption = new Option("I", "input_file", true, "input file path");
         options.addOption(inputFileOption);
         Option inputFolderOption = new Option("F", "input_folder", true, "input folder path");
@@ -62,7 +66,7 @@ public class MainConfig {
         try {
             cmd = parser.parse(options, args);
         } catch (ParseException exception) {
-            System.out.println(exception.getMessage());
+            logger.error("Error", exception);
             formatter.printHelp("order", options);
         }
 

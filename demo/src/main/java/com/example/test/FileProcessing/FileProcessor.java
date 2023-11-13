@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.example.test.MainConfig;
 import com.example.test.Currency.CurrencyConverter;
 import com.example.test.Product.GroupedProduct;
@@ -17,12 +20,14 @@ import com.example.test.Product.ProductGrouper;
 
 public class FileProcessor {
     private MainConfig config;
-
+    private Logger logger;
+    
     public FileProcessor(MainConfig config){
         this.config = config;
+        this.logger = LoggerFactory.getLogger(FileProcessor.class);
     }
 
-    public void processInput() throws IOException {
+    public void processInput() {
         if (config.getIsFolderInput()){
             processFolderInput();
         } else {
@@ -54,7 +59,7 @@ public class FileProcessor {
         writer.writeToJson(products);
     }
 
-    public void processFolderInput() throws IOException{
+    public void processFolderInput(){
         try (Stream<Path> paths = Files.walk(Paths.get(config.getInputFolder()))) {
             paths
                 .filter(Files::isRegularFile)
@@ -69,7 +74,10 @@ public class FileProcessor {
                         .replace(".xhtml", ".json")
                     )
                 );
-        } 
+        } catch (IOException exception){
+            this.logger.error(exception.getMessage());
+            this.config.printHelpMessage();
+        }
     }
 
 }
