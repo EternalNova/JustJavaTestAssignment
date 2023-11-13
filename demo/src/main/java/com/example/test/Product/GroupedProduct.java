@@ -16,20 +16,15 @@ public class GroupedProduct {
     @SerializedName("Заказы")
     public List<Product> productList;
 
-    // public GroupedProduct() {
-    //     this.totalOrders = 0;
-    //     this.totalPriceSum = BigDecimal.ZERO;
-    // }
-
     public GroupedProduct(List<Product> productList){
         this.productList = productList;
         this.totalOrders = productList.size();
         this.totalPriceSum = new HashMap<Currency, BigDecimal>(); 
         for (Currency currency : Currency.values()) {
             BigDecimal totalPriceCurrency = productList.stream()
-            .filter(product -> product.price.containsKey(currency))
-            .map(product -> product.price.get(currency).multiply(BigDecimal.valueOf(product.count)))
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .filter(product -> product.price.containsKey(currency))
+                .map(product -> product.price.get(currency).multiply(BigDecimal.valueOf(product.count)))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
             totalPriceSum.put(currency, totalPriceCurrency);
         }
         

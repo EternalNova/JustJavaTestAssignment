@@ -8,7 +8,7 @@ import com.example.test.Product.ProductFilter;
 
 public class ProductFilterTest {
 
-        private List<Product> createTestProducts() {
+    private List<Product> createTestProducts() {
             List<Product> products = new ArrayList<>();
             products.add(new Product(1, "Product1", "10.00", "USD", "Category1", "8", "Store1", "01.01.2023"));
             products.add(new Product(2, "Product2", "15.50", "USD", "Category2", "12", "Store2", "02.01.2023"));
@@ -57,7 +57,5 @@ public class ProductFilterTest {
         List<Product> filteredProducts = ProductFilter.filterProducts(products, filterExpression);
         Assert.assertEquals(3, filteredProducts.size());
     }
-
-    
 
 }

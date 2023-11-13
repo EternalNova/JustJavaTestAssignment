@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Product implements Serializable {
 
-    private transient HashMap<String, Currency> currencyMap = new HashMap<String, Currency>(){{
+    final private static transient HashMap<String, Currency> currencyMap = new HashMap<String, Currency>(){{
         put("USD", Currency.USD);
         put("RUB", Currency.RUB);
         put("EUR", Currency.EUR);
@@ -70,7 +70,8 @@ public class Product implements Serializable {
         this.category = category;
         this.count = new Integer(count);
         this.store = store;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy").withLocale(Locale.getDefault());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+                                    .withLocale(Locale.getDefault());
         this.date = LocalDate.parse(date, dtf);
     }
 

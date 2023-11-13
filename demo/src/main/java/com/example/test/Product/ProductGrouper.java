@@ -5,11 +5,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ProductGrouper {
-     public static Map<String, GroupedProduct> groupProductsByField(List<Product> products, String groupingField) {
+    public static Map<String, GroupedProduct> groupProductsByField(List<Product> products, String groupingField) {
         return products.stream()
                 .collect(Collectors.groupingBy(product -> getFieldValue(product, groupingField),
                         Collectors.collectingAndThen(Collectors.toList(), GroupedProduct::groupedProductFromList)));
-
     }
 
     private static String getFieldValue(Product product, String field) {

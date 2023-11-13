@@ -23,26 +23,31 @@ public class FileProcessor {
     }
 
     public void processInput() throws IOException {
-        if (config.is_folder_input){
+        if (config.isFolderInput){
             processFolderInput();
-        }
-        else{
+        } else {
             processFileInput(
-                Paths.get(config.input_file).getFileName().toString().replace(".xhtml", ".json")
+                Paths.get(config.inputFile)
+                    .getFileName()
+                    .toString()
+                    .replace(".xhtml", ".json")
             );
         }
 
     }
 
     public void processFileInput(String outputFile){
-        List<Product> products = XHTMLParser.parse(this.config.input_file);
-        products.stream().forEach(product -> {CurrencyConverter.convertAll(product.price);});
-        JsonWriter writer = new JsonWriter(this.config.output_folder, outputFile);
-        if (!config.filter_equation.isEmpty()){
-            products = ProductFilter.filterProducts(products, config.filter_equation);
+        List<Product> products = XHTMLParser.parse(this.config.inputFile);
+        products.stream()
+            .forEach(product -> 
+                CurrencyConverter.convertAll(product.price)
+            );
+        JsonWriter writer = new JsonWriter(this.config.outputFolder, outputFile);
+        if (!config.filterEquation.isEmpty()){
+            products = ProductFilter.filterProducts(products, config.filterEquation);
         }
-        if (!config.groupbyField.isEmpty()){
-            Map<String, GroupedProduct> groupedProducts = ProductGrouper.groupProductsByField(products, config.groupbyField);
+        if (!config.groupByField.isEmpty()){
+            Map<String, GroupedProduct> groupedProducts = ProductGrouper.groupProductsByField(products, config.groupByField);
             writer.writeToJson(groupedProducts);
             return;
         }
@@ -50,14 +55,19 @@ public class FileProcessor {
     }
 
     public void processFolderInput() throws IOException{
-        try (Stream<Path> paths = Files.walk(Paths.get(config.input_folder))) {
+        try (Stream<Path> paths = Files.walk(Paths.get(config.inputFolder))) {
             paths
                 .filter(Files::isRegularFile)
-                .filter(path -> path.getFileName().toString().endsWith(".xhtml"))
+                .filter(
+                    path -> path.getFileName()
+                        .toString()
+                        .endsWith(".xhtml"))
                 .forEach(
-                    path -> {processFileInput(
-                        path.getFileName().toString().replace(".xhtml", ".json")
-                    );}
+                    path -> processFileInput(
+                        path.getFileName()
+                        .toString()
+                        .replace(".xhtml", ".json")
+                    )
                 );
         } 
     }

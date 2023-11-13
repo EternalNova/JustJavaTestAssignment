@@ -34,8 +34,8 @@ public class XHTMLParser {
                 products.add(product);
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
 
         return products;

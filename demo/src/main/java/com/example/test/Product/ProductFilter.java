@@ -26,7 +26,8 @@ public class ProductFilter {
         }
         String field = tokens[0];
         String value = tokens[1];
-        String operator = filterExpression.replace(field, "").replace(value, "");
+        String operator = filterExpression.replace(field, "")
+                            .replace(value, "");
 
         System.out.println(field);
         System.out.println(value);
@@ -68,11 +69,14 @@ public class ProductFilter {
         BigDecimal numValue = new BigDecimal(value);
         switch (operator) {
             case ">":
-                return product -> getter.apply(product).compareTo(numValue) > 0;
+                return product -> getter.apply(product)
+                                    .compareTo(numValue) > 0;
             case "<":
-                return product -> getter.apply(product).compareTo(numValue) < 0;
+                return product -> getter.apply(product)
+                                    .compareTo(numValue) < 0;
             case "=":
-                return product -> getter.apply(product).compareTo(numValue) == 0;
+                return product -> getter.apply(product)
+                                    .compareTo(numValue) == 0;
             default:
                 throw new IllegalArgumentException("Unsupported operator: " + operator);
         }
@@ -81,7 +85,8 @@ public class ProductFilter {
     private static Predicate<Product> createStringPredicate(String operator, String value, Function<Product, String> getter) {
         switch (operator) {
             case "=":
-                return product -> getter.apply(product).equals(value);
+                return product -> getter.apply(product)
+                                    .equals(value);
 
             default:
                 throw new IllegalArgumentException("Unsupported operator: " + operator);
@@ -92,11 +97,14 @@ public class ProductFilter {
         LocalDate dateValue = LocalDate.parse(value, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         switch (operator) {
             case "=":
-                return product -> getter.apply(product).isEqual(dateValue);
+                return product -> getter.apply(product)
+                                    .isEqual(dateValue);
             case ">":
-                return product -> getter.apply(product).isAfter(dateValue);
+                return product -> getter.apply(product)
+                                    .isAfter(dateValue);
             case "<":
-                return product -> getter.apply(product).isBefore(dateValue);
+                return product -> getter.apply(product)
+                                    .isBefore(dateValue);
 
             default:
                 throw new IllegalArgumentException("Unsupported operator: " + operator);
