@@ -21,6 +21,10 @@ public class Product implements Serializable {
     @SerializedName("ID")
     private Integer id;
 
+    public Integer getId(){
+        return id;
+    }
+
     @SerializedName("Название товара")
     private String name;
 

@@ -5,10 +5,10 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.example.test.Currency.Currency;
 import com.example.test.Product.GroupedProduct;
 import com.example.test.Product.Product;
 import com.example.test.Product.ProductGrouper;
+import com.example.test.Currency.Currency;
 
 import org.junit.Assert;
 

@@ -41,7 +41,7 @@ public class FileProcessor {
 
     }
 
-    public void processFileInput(String outputFile){
+    private void processFileInput(String outputFile){
         List<Product> products = XHTMLParser.parse(this.config.getInputFile());
         products.stream()
             .forEach(product -> 
@@ -59,7 +59,7 @@ public class FileProcessor {
         writer.writeToJson(products);
     }
 
-    public void processFolderInput(){
+    private void processFolderInput(){
         try (Stream<Path> paths = Files.walk(Paths.get(config.getInputFolder()))) {
             paths
                 .filter(Files::isRegularFile)
