@@ -10,32 +10,12 @@ import org.apache.commons.cli.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import lombok.Getter;
+
+@Getter
 public class MainConfig {
+    
     private Boolean isFolderInput;
-    public Boolean getIsFolderInput() {
-        return isFolderInput;
-    }
-
-    public String getInputFolder() {
-        return inputFolder;
-    }
-
-    public String getOutputFolder() {
-        return outputFolder;
-    }
-
-    public String getInputFile() {
-        return inputFile;
-    }
-
-    public String getFilterEquation() {
-        return filterEquation;
-    }
-
-    public String getGroupByField() {
-        return groupByField;
-    }
-
     private String inputFolder;
     private String outputFolder;
     private String inputFile;

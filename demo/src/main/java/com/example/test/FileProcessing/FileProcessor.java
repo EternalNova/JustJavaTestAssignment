@@ -45,7 +45,7 @@ public class FileProcessor {
         List<Product> products = XHTMLParser.parse(this.config.getInputFile());
         products.stream()
             .forEach(product -> 
-                CurrencyConverter.convertAll(product.getPriceMap())
+                CurrencyConverter.convertAll(product.getPrice())
             );
         JsonWriter writer = new JsonWriter(this.config.getOutputFolder(), outputFile);
         if (!config.getFilterEquation().isEmpty()){

@@ -1,6 +1,5 @@
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import com.example.test.FileProcessing.JsonWriter;
-import com.example.test.FileProcessing.LocalDateAdapter;
 import com.example.test.FileProcessing.LocalDateDeserializer;
 import com.example.test.Product.Product;
 import com.google.gson.Gson;
