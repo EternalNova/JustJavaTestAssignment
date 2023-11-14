@@ -16,7 +16,7 @@ import java.util.List;
 
 public class XHTMLParser {
     public static List<Product> parse(String filePath) {
-        ArrayList<Product> products = new ArrayList<Product>();
+        List<Product> products = new ArrayList<Product>();
         
         Logger logger = LoggerFactory.getLogger(XHTMLParser.class);
 

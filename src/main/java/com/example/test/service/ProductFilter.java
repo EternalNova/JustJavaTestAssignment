@@ -31,10 +31,6 @@ public class ProductFilter {
         String operator = filterExpression.replace(field, "")
                             .replace(value, "");
 
-        System.out.println(field);
-        System.out.println(value);
-        System.out.println(operator);
-
         switch (field) {
             case "count":
                 return createNumericPredicate(operator, value, Product::getCount);

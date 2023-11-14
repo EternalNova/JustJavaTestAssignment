@@ -29,7 +29,6 @@ public class JsonWriter {
     }
 
     public void writeToJson(Object data) {
-        
         try (BufferedWriter writer = Files.newBufferedWriter(this.fullPath, StandardCharsets.UTF_8)) {
             Gson gson = new GsonBuilder()
                 .setPrettyPrinting()

@@ -3,6 +3,7 @@ package com.example.test.bean;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -14,14 +15,14 @@ public class GroupedProduct {
     @SerializedName("Количество заказов")
     private int totalOrders;
     @SerializedName("Сумма всех заказов")
-    private HashMap<Currency, BigDecimal> totalPriceSum;
+    private Map<Currency, BigDecimal> totalPriceSum;
     @SerializedName("Заказы")
     private List<Product> productList;
 
     public GroupedProduct(List<Product> productList){
         this.productList = productList;
         this.totalOrders = productList.size();
-        this.totalPriceSum = new HashMap<Currency, BigDecimal>(); 
+        this.totalPriceSum = new HashMap<>(); 
         for (Currency currency : Currency.values()) {
             BigDecimal totalPriceCurrency = productList.stream()
                 .filter(product -> product.getPrice().containsKey(currency))
@@ -33,8 +34,7 @@ public class GroupedProduct {
     }
 
     public static GroupedProduct groupedProductFromList(List<Product> productList){
-        GroupedProduct groupedProduct = new GroupedProduct(productList);
-        return groupedProduct;
+        return new GroupedProduct(productList);
     }
 
 }

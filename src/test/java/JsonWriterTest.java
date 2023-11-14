@@ -61,6 +61,7 @@ public class JsonWriterTest {
                 .create();
         JsonReader reader = new JsonReader(new FileReader(Paths.get(outputFolder, tmpFileName).toString()));
         Product[] jsonProducts = gson.fromJson(reader, Product[].class);
+        reader.close();
         Assert.assertEquals(products.size(), jsonProducts.length);
     }
 

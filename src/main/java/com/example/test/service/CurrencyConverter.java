@@ -8,13 +8,13 @@ import java.util.Map;
 import com.example.test.bean.Currency;
 
 public class CurrencyConverter {
-    final private static HashMap<Currency, BigDecimal> USD2CurrencyRates =  new HashMap<Currency, BigDecimal>(){{
+    final private static Map<Currency, BigDecimal> USD2CurrencyRates =  new HashMap<Currency, BigDecimal>(){{
         put(Currency.USD, new BigDecimal(1).setScale(2));
         put(Currency.RUB, new BigDecimal(90).setScale(2));
         put(Currency.EUR, new BigDecimal(0.93).setScale(2, RoundingMode.HALF_DOWN));
     }};
 
-    public static void convertAll(HashMap<Currency, BigDecimal> prices){
+    public static void convertAll(Map<Currency, BigDecimal> prices){
 
         // Если нет цены в USD, то находим первую валюту и конвертируем ее в USD
         if (!prices.containsKey(Currency.USD)){

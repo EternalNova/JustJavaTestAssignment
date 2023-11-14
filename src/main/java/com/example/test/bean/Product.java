@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -14,7 +15,7 @@ import lombok.Data;
 @Data
 public class Product implements Serializable {
 
-    final private static transient HashMap<String, Currency> currencyMap = new HashMap<String, Currency>(){{
+    final private static Map<String, Currency> currencyMap = new HashMap(){{
         put("USD", Currency.USD);
         put("RUB", Currency.RUB);
         put("EUR", Currency.EUR);
@@ -27,15 +28,7 @@ public class Product implements Serializable {
     private String name;
 
     @SerializedName("Цена")
-    private HashMap<Currency, BigDecimal> price = new HashMap<Currency, BigDecimal>();
-
-    public BigDecimal getDefaultPrice(){
-        return price.get(Currency.USD);
-    }
-
-    public BigDecimal getPriceCurrency(Currency currency){
-        return price.get(currency);
-    }
+    private Map<Currency, BigDecimal> price = new HashMap<>();
 
     @SerializedName("Категория")
     private String category;
@@ -59,6 +52,14 @@ public class Product implements Serializable {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy")
                                     .withLocale(Locale.getDefault());
         this.date = LocalDate.parse(date, dtf);
+    }
+    
+    public BigDecimal getDefaultPrice(){
+        return price.get(Currency.USD);
+    }
+
+    public BigDecimal getPriceCurrency(Currency currency){
+        return price.get(currency);
     }
 
 }
