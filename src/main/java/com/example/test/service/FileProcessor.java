@@ -8,20 +8,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.example.test.bean.GroupedProduct;
 import com.example.test.bean.Product;
 import com.example.test.utils.MainArgParser;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class FileProcessor {
     private MainArgParser config;
-    private Logger logger;
     
     public FileProcessor(MainArgParser config){
         this.config = config;
-        this.logger = LoggerFactory.getLogger(FileProcessor.class);
     }
 
     public void processInput() {
@@ -72,7 +70,7 @@ public class FileProcessor {
                     )
                 );
         } catch (IOException exception){
-            this.logger.error(exception.getMessage());
+            log.error(exception.getMessage());
             this.config.printHelpMessage();
         }
     }

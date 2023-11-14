@@ -1,4 +1,4 @@
 .vscode
-demo/target
-demo/input/junk_file
+target
+input/junk_file
 output
