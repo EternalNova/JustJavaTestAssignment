@@ -1,8 +1,11 @@
-package com.example.test.Product;
+package com.example.test.service;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import com.example.test.bean.GroupedProduct;
+import com.example.test.bean.Product;
 
 public class ProductGrouper {
     public static Map<String, GroupedProduct> groupProductsByField(List<Product> products, String groupingField) {

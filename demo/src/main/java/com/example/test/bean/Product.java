@@ -1,4 +1,4 @@
-package com.example.test.Product;
+package com.example.test.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -7,8 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Locale;
 
-
-import com.example.test.Currency.Currency;
 import com.google.gson.annotations.SerializedName;
 
 import lombok.Data;
@@ -38,7 +36,7 @@ public class Product implements Serializable {
     public BigDecimal getPriceCurrency(Currency currency){
         return price.get(currency);
     }
-    
+
     @SerializedName("Категория")
     private String category;
 

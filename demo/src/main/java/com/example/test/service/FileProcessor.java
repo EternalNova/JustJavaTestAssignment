@@ -1,4 +1,4 @@
-package com.example.test.FileProcessing;
+package com.example.test.service;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,18 +11,15 @@ import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.example.test.MainConfig;
-import com.example.test.Currency.CurrencyConverter;
-import com.example.test.Product.GroupedProduct;
-import com.example.test.Product.Product;
-import com.example.test.Product.ProductFilter;
-import com.example.test.Product.ProductGrouper;
+import com.example.test.bean.GroupedProduct;
+import com.example.test.bean.Product;
+import com.example.test.utils.MainArgParser;
 
 public class FileProcessor {
-    private MainConfig config;
+    private MainArgParser config;
     private Logger logger;
     
-    public FileProcessor(MainConfig config){
+    public FileProcessor(MainArgParser config){
         this.config = config;
         this.logger = LoggerFactory.getLogger(FileProcessor.class);
     }

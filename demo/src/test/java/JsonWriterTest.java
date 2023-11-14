@@ -11,9 +11,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import com.example.test.FileProcessing.JsonWriter;
-import com.example.test.FileProcessing.LocalDateDeserializer;
-import com.example.test.Product.Product;
+import com.example.test.bean.Product;
+import com.example.test.service.JsonWriter;
+import com.example.test.utils.LocalDateDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;

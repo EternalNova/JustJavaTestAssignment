@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.example.test.Product.Product;
-import com.example.test.FileProcessing.XHTMLParser;
+import com.example.test.bean.Product;
+import com.example.test.service.XHTMLParser;
 
 import org.junit.Assert;
 import org.junit.Before;

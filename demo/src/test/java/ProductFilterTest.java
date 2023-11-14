@@ -3,8 +3,9 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.Assert;
-import com.example.test.Product.Product;
-import com.example.test.Product.ProductFilter;
+
+import com.example.test.bean.Product;
+import com.example.test.service.ProductFilter;
 
 public class ProductFilterTest {
 

@@ -1,10 +1,9 @@
-package com.example.test.Product;
+package com.example.test.bean;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
-import com.example.test.Currency.Currency;
 import com.google.gson.annotations.SerializedName;
 
 import lombok.Data;
