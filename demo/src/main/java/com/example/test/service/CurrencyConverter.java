@@ -1,9 +1,11 @@
-package com.example.test.Currency;
+package com.example.test.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.example.test.bean.Currency;
 
 public class CurrencyConverter {
     final private static HashMap<Currency, BigDecimal> USD2CurrencyRates =  new HashMap<Currency, BigDecimal>(){{

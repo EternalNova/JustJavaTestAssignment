@@ -1,4 +1,4 @@
-package com.example.test.Product;
+package com.example.test.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -8,6 +8,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
+
+import com.example.test.bean.Product;
 
 public class ProductFilter {
 

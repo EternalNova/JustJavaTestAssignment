@@ -1,4 +1,4 @@
-package com.example.test;
+package com.example.test.utils;
 
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
@@ -10,32 +10,14 @@ import org.apache.commons.cli.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MainConfig {
+import com.example.test.Main;
+
+import lombok.Getter;
+
+@Getter
+public class MainArgParser {
+
     private Boolean isFolderInput;
-    public Boolean getIsFolderInput() {
-        return isFolderInput;
-    }
-
-    public String getInputFolder() {
-        return inputFolder;
-    }
-
-    public String getOutputFolder() {
-        return outputFolder;
-    }
-
-    public String getInputFile() {
-        return inputFile;
-    }
-
-    public String getFilterEquation() {
-        return filterEquation;
-    }
-
-    public String getGroupByField() {
-        return groupByField;
-    }
-
     private String inputFolder;
     private String outputFolder;
     private String inputFile;
@@ -46,7 +28,7 @@ public class MainConfig {
     private HelpFormatter formatter = new HelpFormatter();
     private Options options = new Options();
 
-    public MainConfig(String[] args){
+    public MainArgParser(String[] args){
         
         Logger logger = LoggerFactory.getLogger(Main.class);
 

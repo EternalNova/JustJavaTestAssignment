@@ -1,4 +1,4 @@
-package com.example.test.Product;
+package com.example.test.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -7,9 +7,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Locale;
 
-import com.example.test.Currency.Currency;
 import com.google.gson.annotations.SerializedName;
 
+import lombok.Data;
+
+@Data
 public class Product implements Serializable {
 
     final private static transient HashMap<String, Currency> currencyMap = new HashMap<String, Currency>(){{
@@ -21,16 +23,8 @@ public class Product implements Serializable {
     @SerializedName("ID")
     private Integer id;
 
-    public Integer getId(){
-        return id;
-    }
-
     @SerializedName("Название товара")
     private String name;
-
-    public String getName(){
-        return name;
-    }
 
     @SerializedName("Цена")
     private HashMap<Currency, BigDecimal> price = new HashMap<Currency, BigDecimal>();
@@ -39,41 +33,21 @@ public class Product implements Serializable {
         return price.get(Currency.USD);
     }
 
-    public BigDecimal getPrice(Currency currency){
+    public BigDecimal getPriceCurrency(Currency currency){
         return price.get(currency);
-    }
-
-    public HashMap<Currency, BigDecimal> getPriceMap(){
-        return price;
     }
 
     @SerializedName("Категория")
     private String category;
 
-    public String getCategory(){
-        return category;
-    }
-
     @SerializedName("Количество")
     private Integer count;
-
-    public Integer getCount(){
-        return count;
-    }
 
     @SerializedName("Магазин")
     private String store;
 
-    public String getStore(){
-        return store;
-    }
-
     @SerializedName("Дата заказа")
     private LocalDate date;
-
-    public LocalDate getDate(){
-        return date;
-    }
 
     public Product(Integer id, String name, String price, String currency, String category, String count, String store, String date) {
         this.id = id;

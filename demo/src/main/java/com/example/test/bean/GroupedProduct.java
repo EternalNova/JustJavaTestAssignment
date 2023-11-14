@@ -1,12 +1,14 @@
-package com.example.test.Product;
+package com.example.test.bean;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
-import com.example.test.Currency.Currency;
 import com.google.gson.annotations.SerializedName;
 
+import lombok.Data;
+
+@Data
 public class GroupedProduct {
     
     @SerializedName("Количество заказов")
@@ -22,20 +24,12 @@ public class GroupedProduct {
         this.totalPriceSum = new HashMap<Currency, BigDecimal>(); 
         for (Currency currency : Currency.values()) {
             BigDecimal totalPriceCurrency = productList.stream()
-                .filter(product -> product.getPriceMap().containsKey(currency))
-                .map(product -> product.getPrice(currency).multiply(BigDecimal.valueOf(product.getCount())))
+                .filter(product -> product.getPrice().containsKey(currency))
+                .map(product -> product.getPriceCurrency(currency).multiply(BigDecimal.valueOf(product.getCount())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
             totalPriceSum.put(currency, totalPriceCurrency);
         }
         
-    }
-
-    public int getTotalOrders() {
-        return totalOrders;
-    }
-
-    public HashMap<Currency, BigDecimal> getTotalPriceSum() {
-        return totalPriceSum;
     }
 
     public static GroupedProduct groupedProductFromList(List<Product> productList){
