@@ -7,15 +7,16 @@ import java.util.Map;
 
 import com.example.test.bean.Currency;
 
+import lombok.val;
+
 public class CurrencyConverter {
-    final private static HashMap<Currency, BigDecimal> USD2CurrencyRates =  new HashMap<Currency, BigDecimal>(){{
+    final private static Map<Currency, BigDecimal> USD2CurrencyRates =  new HashMap<Currency, BigDecimal>(){{
         put(Currency.USD, new BigDecimal(1).setScale(2));
         put(Currency.RUB, new BigDecimal(90).setScale(2));
         put(Currency.EUR, new BigDecimal(0.93).setScale(2, RoundingMode.HALF_DOWN));
     }};
 
-    public static void convertAll(HashMap<Currency, BigDecimal> prices){
-
+    public static void convertAll(Map<Currency, BigDecimal> prices){
         // Если нет цены в USD, то находим первую валюту и конвертируем ее в USD
         if (!prices.containsKey(Currency.USD)){
             for (Map.Entry<Currency, BigDecimal> entry : prices.entrySet()) {
@@ -27,12 +28,12 @@ public class CurrencyConverter {
             }
         }
         // Конвертируем USD во все остальные
-        BigDecimal usdPrice = prices.get(Currency.USD);
+        val usdPrice = prices.get(Currency.USD);
         for (Currency currency : Currency.values()){
             if (currency == Currency.USD){
                 continue;
             }
-            BigDecimal newPrice = usdPrice.multiply(
+            val newPrice = usdPrice.multiply(
                 USD2CurrencyRates.get(currency))
                 .setScale(2, RoundingMode.HALF_DOWN
             );

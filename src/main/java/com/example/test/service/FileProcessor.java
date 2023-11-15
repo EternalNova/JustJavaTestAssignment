@@ -9,16 +9,18 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import com.example.test.bean.GroupedProduct;
+import com.example.test.bean.MainArguments;
 import com.example.test.bean.Product;
-import com.example.test.utils.MainArgParser;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class FileProcessor {
-    private MainArgParser config;
-    
-    public FileProcessor(MainArgParser config){
+    private MainArguments config;
+    private final String XHTML = ".xhtml";
+    private final String JSON = ".json";
+
+    public FileProcessor(MainArguments config){
         this.config = config;
     }
 
@@ -30,7 +32,7 @@ public class FileProcessor {
                 Paths.get(config.getInputFile())
                     .getFileName()
                     .toString()
-                    .replace(".xhtml", ".json")
+                    .replace(XHTML, JSON)
             );
         }
 
@@ -38,11 +40,14 @@ public class FileProcessor {
 
     private void processFileInput(String outputFile){
         List<Product> products = XHTMLParser.parse(this.config.getInputFile());
-        products.stream()
+        products
             .forEach(product -> 
                 CurrencyConverter.convertAll(product.getPrice())
             );
         JsonWriter writer = new JsonWriter(this.config.getOutputFolder(), outputFile);
+        if (!writer.isFolderCreated){
+            return;
+        }
         if (!config.getFilterEquation().isEmpty()){
             products = ProductFilter.filterProducts(products, config.getFilterEquation());
         }
@@ -61,12 +66,12 @@ public class FileProcessor {
                 .filter(
                     path -> path.getFileName()
                         .toString()
-                        .endsWith(".xhtml"))
+                        .endsWith(XHTML))
                 .forEach(
                     path -> processFileInput(
                         path.getFileName()
                         .toString()
-                        .replace(".xhtml", ".json")
+                        .replace(XHTML, JSON)
                     )
                 );
         } catch (IOException exception){

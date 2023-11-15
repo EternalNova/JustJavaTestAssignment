@@ -11,10 +11,12 @@ import java.util.stream.Collectors;
 
 import com.example.test.bean.Product;
 
+import lombok.val;
+
 public class ProductFilter {
 
     public static List<Product> filterProducts(List<Product> products, String filterExpression) {
-        Predicate<Product> filterPredicate = createFilterPredicate(filterExpression);
+        val filterPredicate = createFilterPredicate(filterExpression);
 
         return products.stream()
                 .filter(filterPredicate)
@@ -22,18 +24,14 @@ public class ProductFilter {
     }
 
     private static Predicate<Product> createFilterPredicate(String filterExpression) {
-        String[] tokens = filterExpression.split("<|>|=");
+        val tokens = filterExpression.split("<|>|=");
         if (tokens.length < 2){
             throw new IllegalArgumentException("Invalid Filter Expression: " + filterExpression);
         }
-        String field = tokens[0];
-        String value = tokens[1];
-        String operator = filterExpression.replace(field, "")
+        val field = tokens[0];
+        val value = tokens[1];
+        val operator = filterExpression.replace(field, "")
                             .replace(value, "");
-
-        System.out.println(field);
-        System.out.println(value);
-        System.out.println(operator);
 
         switch (field) {
             case "count":
@@ -54,7 +52,7 @@ public class ProductFilter {
     }
 
     private static Predicate<Product> createNumericPredicate(String operator, String value, ToIntFunction<Product> getter) {
-        int intValue = Integer.parseInt(value);
+        val intValue = Integer.parseInt(value);
         switch (operator) {
             case ">":
                 return product -> getter.applyAsInt(product) > intValue;
@@ -68,7 +66,7 @@ public class ProductFilter {
     }
 
     private static Predicate<Product> createDecimalPredicate(String operator, String value, Function<Product, BigDecimal> getter) {
-        BigDecimal numValue = new BigDecimal(value);
+        val numValue = new BigDecimal(value);
         switch (operator) {
             case ">":
                 return product -> getter.apply(product)
@@ -96,7 +94,7 @@ public class ProductFilter {
     }
 
     private static Predicate<Product> createDatePredicate(String operator, String value, Function<Product, LocalDate> getter) {
-        LocalDate dateValue = LocalDate.parse(value, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        val dateValue = LocalDate.parse(value, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         switch (operator) {
             case "=":
                 return product -> getter.apply(product)

@@ -1,24 +1,22 @@
 package com.example.test;
 
-import java.io.IOException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.example.test.service.FileProcessor;
 import com.example.test.utils.MainArgParser;
 
+import lombok.val;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-        
-        Logger logger = LoggerFactory.getLogger(Main.class);
-        MainArgParser config = new MainArgParser(args);
+    public static void main(String[] args) {
+        val config = MainArgParser.parseArguments(args);
 
-        FileProcessor fProcessor = new FileProcessor(config);
+        val fProcessor = new FileProcessor(config);
         try{
             fProcessor.processInput();
         } catch (Exception exception){
-            logger.error(exception.getMessage());
+            log.error(exception.getMessage());
             config.printHelpMessage();
         }
 

@@ -13,14 +13,19 @@ import org.junit.rules.TemporaryFolder;
 
 import com.example.test.bean.Product;
 import com.example.test.service.JsonWriter;
+import com.example.test.service.XHTMLParser;
 import com.example.test.utils.LocalDateDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class JsonWriterTest {
 
     private String tmpFileName;
+    private List<Product> products;
 
     @Rule
     public TemporaryFolder tmpFolder = new TemporaryFolder();
@@ -28,24 +33,18 @@ public class JsonWriterTest {
     @Before
     public void init() {
         tmpFileName = "tmpOutput.json";
-    }
-
-    private List<Product> createTestProducts() {
-        List<Product> products = new ArrayList<>();
-        products.add(new Product(1, "Product1", "10.00", "USD", "Category1", "8", "Store1", "01.01.2023"));
-        products.add(new Product(2, "Product2", "15.50", "USD", "Category2", "12", "Store2", "02.01.2023"));
-        products.add(new Product(3, "Product1", "30.00", "USD", "Category1", "3", "Store2", "05.05.2023"));
-        products.add(new Product(4, "Product3", "20.00", "USD", "Category3", "6", "Store3", "03.01.2023"));
-        products.add(new Product(5, "Product4", "25.00", "USD", "Category4", "10", "Store2", "04.01.2023"));
-        products.add(new Product(6, "Product5", "12.50", "USD", "Category1", "9", "Store1", "01.02.2023"));
-        products.add(new Product(7, "Product6", "1.50", "USD", "Category2", "15", "Store2", "02.01.2023"));
-        
-        return products;
+        products = new ArrayList<>();
+        products.add(XHTMLParser.parseFromStrings(1, "Product1", "10.00", "USD", "Category1", "8", "Store1", "01.01.2023"));
+        products.add(XHTMLParser.parseFromStrings(2, "Product2", "15.50", "USD", "Category2", "12", "Store2", "02.01.2023"));
+        products.add(XHTMLParser.parseFromStrings(3, "Product1", "30.00", "USD", "Category1", "3", "Store2", "05.05.2023"));
+        products.add(XHTMLParser.parseFromStrings(4, "Product3", "20.00", "USD", "Category3", "6", "Store3", "03.01.2023"));
+        products.add(XHTMLParser.parseFromStrings(5, "Product4", "25.00", "USD", "Category4", "10", "Store2", "04.01.2023"));
+        products.add(XHTMLParser.parseFromStrings(6, "Product5", "12.50", "USD", "Category1", "9", "Store1", "01.02.2023"));
+        products.add(XHTMLParser.parseFromStrings(7, "Product6", "1.50", "USD", "Category2", "15", "Store2", "02.01.2023"));
     }
 
     @Test
     public void testJsonWrite() throws IOException{
-        List<Product> products = createTestProducts();
         String outputFolder = tmpFolder.newFolder("tmpOutput")
                 .getAbsolutePath()
                 .toString();
@@ -59,9 +58,14 @@ public class JsonWriterTest {
                 .setPrettyPrinting()
                 .registerTypeAdapter(LocalDate.class, new LocalDateDeserializer())
                 .create();
-        JsonReader reader = new JsonReader(new FileReader(Paths.get(outputFolder, tmpFileName).toString()));
-        Product[] jsonProducts = gson.fromJson(reader, Product[].class);
-        Assert.assertEquals(products.size(), jsonProducts.length);
+        try(JsonReader reader = new JsonReader(new FileReader(Paths.get(outputFolder, tmpFileName).toString()))){
+            Product[] jsonProducts = gson.fromJson(reader, Product[].class);
+            Assert.assertEquals(products.size(), jsonProducts.length);
+        }
+        catch (Exception exc){
+            log.error("Reader error", exc.getMessage());
+            Assert.fail();
+        }
     }
 
 }
