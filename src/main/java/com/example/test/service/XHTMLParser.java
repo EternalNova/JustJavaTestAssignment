@@ -62,23 +62,4 @@ public class XHTMLParser {
         return products;
     }
 
-    public static Product parseFromStrings(Integer id, String name, String price, String currency, String category, String count, String store, String date){
-        Map<Currency, BigDecimal> priceMap = new HashMap<>();
-        priceMap.put(currencyMap.get(currency), new BigDecimal(price));
-        val countInt = new Integer(count);
-        val dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-                                    .withLocale(Locale.getDefault());
-        val dateLocal = LocalDate.parse(date, dtf);
-        return Product.builder()
-                            .id(id)
-                            .name(name)
-                            .price(priceMap)
-                            .category(category)
-                            .count(countInt)
-                            .store(store)
-                            .date(dateLocal)
-                            .build();
-
-    }
-
 }
