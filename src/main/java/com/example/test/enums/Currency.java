@@ -1,4 +1,4 @@
-package com.example.test.bean;
+package com.example.test.enums;
 
 public enum Currency{
     USD,

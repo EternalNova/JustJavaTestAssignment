@@ -4,10 +4,9 @@ import org.jsoup.Jsoup;
 import org.slf4j.LoggerFactory;
 
 import com.example.test.bean.Product;
+import com.example.test.enums.Currency;
 
 import lombok.val;
-
-import com.example.test.bean.Currency;
 
 import java.io.File;
 import java.io.IOException;
