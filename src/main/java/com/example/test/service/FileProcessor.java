@@ -9,16 +9,16 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import com.example.test.bean.GroupedProduct;
+import com.example.test.bean.MainArguments;
 import com.example.test.bean.Product;
-import com.example.test.utils.MainArgParser;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class FileProcessor {
-    private MainArgParser config;
+    private MainArguments config;
     
-    public FileProcessor(MainArgParser config){
+    public FileProcessor(MainArguments config){
         this.config = config;
     }
 

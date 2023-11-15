@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class XHTMLParser {
 
-    final public static Map<String, Currency> currencyMap = new HashMap(){{
+    final private static Map<String, Currency> currencyMap = new HashMap(){{
         put("USD", Currency.USD);
         put("RUB", Currency.RUB);
         put("EUR", Currency.EUR);
