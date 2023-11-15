@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -39,18 +40,19 @@ public class XHTMLParser {
             val orderElements = doc.select(".order");
 
             for (val orderElement : orderElements) {
-                val id = Integer.parseInt(orderElement.attr("id"));
-                val name = orderElement.select(".name").text();
-                val price = orderElement.select(".price").text();
-                val currency = orderElement.select(".currency").text();
-                val priceMap = new HashMap<>();
-                priceMap.put(currencyMap.get(currency), new BigDecimal(price));
-                val category = orderElement.select(".category").text();
-                val count = orderElement.select(".count").text();
-                val store = orderElement.select(".store_name").text();
-                val date = orderElement.select(".date").text();
-                val product = XHTMLParser.parseFromStrings(id, name, price, currency, category, count, store, date);
-                products.add(product);
+                val dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+                                    .withLocale(Locale.getDefault());
+                products.add(Product.builder()
+                    .id(Integer.parseInt(orderElement.attr("id")))
+                    .name(orderElement.select(".name").text())
+                    .price(Collections.singletonMap(
+                        currencyMap.get(orderElement.select(".currency").text()),
+                        new BigDecimal(orderElement.select(".price").text())))
+                    .category(orderElement.select(".category").text())
+                    .count(Integer.parseInt(orderElement.select(".count").text()))
+                    .store(orderElement.select(".store_name").text())
+                    .date(LocalDate.parse(orderElement.select(".date").text(), dtf))
+                    .build());
             }
 
         } catch (IOException exception) {
