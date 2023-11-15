@@ -9,7 +9,6 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 
 import com.example.test.utils.LocalDateAdapter;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import lombok.val;
