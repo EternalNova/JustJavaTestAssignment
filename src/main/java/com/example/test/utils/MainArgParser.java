@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 public class MainArgParser {
 
     public static MainArguments parseArguments(String[] args){
-        
         CommandLineParser parser = new BasicParser();
         HelpFormatter formatter = new HelpFormatter();
         Options options = new Options();

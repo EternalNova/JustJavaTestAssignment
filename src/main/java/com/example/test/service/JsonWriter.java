@@ -18,13 +18,15 @@ import lombok.extern.slf4j.Slf4j;
 public class JsonWriter {
     
     private Path fullPath;
-
+    public Boolean isFolderCreated = false;
     public JsonWriter(String outputPath, String fileName){
         this.fullPath = Paths.get(outputPath, fileName);
         try{
             Files.createDirectories(Paths.get(outputPath));
+            isFolderCreated = true;
         } catch (IOException exception){
             log.error(exception.getMessage());
+            isFolderCreated = false;
         }
     }
 

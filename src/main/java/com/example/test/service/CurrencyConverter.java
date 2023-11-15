@@ -15,7 +15,6 @@ public class CurrencyConverter {
     }};
 
     public static void convertAll(Map<Currency, BigDecimal> prices){
-
         // Если нет цены в USD, то находим первую валюту и конвертируем ее в USD
         if (!prices.containsKey(Currency.USD)){
             for (Map.Entry<Currency, BigDecimal> entry : prices.entrySet()) {

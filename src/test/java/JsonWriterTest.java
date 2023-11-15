@@ -19,6 +19,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class JsonWriterTest {
 
     private String tmpFileName;
@@ -55,10 +58,14 @@ public class JsonWriterTest {
                 .setPrettyPrinting()
                 .registerTypeAdapter(LocalDate.class, new LocalDateDeserializer())
                 .create();
-        JsonReader reader = new JsonReader(new FileReader(Paths.get(outputFolder, tmpFileName).toString()));
-        Product[] jsonProducts = gson.fromJson(reader, Product[].class);
-        reader.close();
-        Assert.assertEquals(products.size(), jsonProducts.length);
+        try(JsonReader reader = new JsonReader(new FileReader(Paths.get(outputFolder, tmpFileName).toString()))){
+            Product[] jsonProducts = gson.fromJson(reader, Product[].class);
+            Assert.assertEquals(products.size(), jsonProducts.length);
+        }
+        catch (Exception exc){
+            log.error("Reader error", exc.getMessage());
+            Assert.fail();
+        }
     }
 
 }
