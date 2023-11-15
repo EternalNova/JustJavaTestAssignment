@@ -11,6 +11,7 @@ import org.apache.commons.cli.ParseException;
 import com.example.test.bean.MainArguments;
 
 import lombok.Getter;
+import lombok.val;
 import lombok.extern.slf4j.Slf4j;
 
 @Getter
@@ -18,9 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 public class MainArgParser {
 
     public static MainArguments parseArguments(String[] args){
-        CommandLineParser parser = new BasicParser();
-        HelpFormatter formatter = new HelpFormatter();
-        Options options = new Options();
+        val parser = new BasicParser();
+        val formatter = new HelpFormatter();
+        val options = new Options();
 
         options.addOption(new Option("I", "input_file", true, "input file path"));
         options.addOption(new Option("F", "input_folder", true, "input folder path"));
@@ -37,12 +38,12 @@ public class MainArgParser {
             formatter.printHelp("order", options);
         }
 
-        Boolean isFolderInput = cmd.hasOption("input_folder");
-        String inputFolder = cmd.getOptionValue("input_folder", "./demo/input");
-        String outputFolder = cmd.getOptionValue("output_folder", "./output");
-        String inputFile = cmd.getOptionValue("input_file", "./demo/input/input.xhtml");
-        String filterEquation = cmd.getOptionValue("filter", "");
-        String groupByField = cmd.getOptionValue("groupby", "");
+        val isFolderInput = cmd.hasOption("input_folder");
+        val inputFolder = cmd.getOptionValue("input_folder", "./demo/input");
+        val outputFolder = cmd.getOptionValue("output_folder", "./output");
+        val inputFile = cmd.getOptionValue("input_file", "./demo/input/input.xhtml");
+        val filterEquation = cmd.getOptionValue("filter", "");
+        val groupByField = cmd.getOptionValue("groupby", "");
         return new MainArguments(isFolderInput, inputFolder, outputFolder, inputFile, filterEquation, groupByField, formatter, options);
     }
 

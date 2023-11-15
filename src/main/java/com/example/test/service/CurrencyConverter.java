@@ -7,6 +7,8 @@ import java.util.Map;
 
 import com.example.test.bean.Currency;
 
+import lombok.val;
+
 public class CurrencyConverter {
     final private static Map<Currency, BigDecimal> USD2CurrencyRates =  new HashMap<Currency, BigDecimal>(){{
         put(Currency.USD, new BigDecimal(1).setScale(2));
@@ -26,12 +28,12 @@ public class CurrencyConverter {
             }
         }
         // Конвертируем USD во все остальные
-        BigDecimal usdPrice = prices.get(Currency.USD);
+        val usdPrice = prices.get(Currency.USD);
         for (Currency currency : Currency.values()){
             if (currency == Currency.USD){
                 continue;
             }
-            BigDecimal newPrice = usdPrice.multiply(
+            val newPrice = usdPrice.multiply(
                 USD2CurrencyRates.get(currency))
                 .setScale(2, RoundingMode.HALF_DOWN
             );

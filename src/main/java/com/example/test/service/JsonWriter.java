@@ -12,6 +12,7 @@ import com.example.test.utils.LocalDateAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import lombok.val;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -19,6 +20,7 @@ public class JsonWriter {
     
     private Path fullPath;
     public Boolean isFolderCreated = false;
+
     public JsonWriter(String outputPath, String fileName){
         this.fullPath = Paths.get(outputPath, fileName);
         try{
@@ -32,7 +34,7 @@ public class JsonWriter {
 
     public void writeToJson(Object data) {
         try (BufferedWriter writer = Files.newBufferedWriter(this.fullPath, StandardCharsets.UTF_8)) {
-            Gson gson = new GsonBuilder()
+            val gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
