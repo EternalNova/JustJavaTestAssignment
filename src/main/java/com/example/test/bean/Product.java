@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.example.test.enums.Currency;
 import com.google.gson.annotations.SerializedName;
 
 import lombok.AllArgsConstructor;

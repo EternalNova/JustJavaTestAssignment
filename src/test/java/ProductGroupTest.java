@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.example.test.bean.Currency;
 import com.example.test.bean.GroupedProduct;
 import com.example.test.bean.Product;
+import com.example.test.enums.Currency;
 import com.example.test.service.ProductGrouper;
 import com.example.test.service.XHTMLParser;
 

@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.example.test.bean.Currency;
+import com.example.test.enums.Currency;
 
 import lombok.val;
 
