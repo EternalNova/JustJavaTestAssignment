@@ -15,7 +15,8 @@ public class XHTMLParserTest {
     private String failCurrencyExample;
     private String failCountExample;
     private String failDateExample;
-
+    private String incorrectFile;
+    
     @Before
     public void init() {
         testFilePath = getClass().getClassLoader().getResource("inputExample.xhtml").getFile();
@@ -23,6 +24,7 @@ public class XHTMLParserTest {
         failCurrencyExample = getClass().getClassLoader().getResource("failCurrencyExample.xhtml").getFile();
         failCountExample = getClass().getClassLoader().getResource("failCountExample.xhtml").getFile();
         failDateExample = getClass().getClassLoader().getResource("failDateExample.xhtml").getFile();
+        incorrectFile = getClass().getClassLoader().getResource("incorrectFile.json").getFile();
     }
 
 
@@ -55,6 +57,12 @@ public class XHTMLParserTest {
     @Test
     public void testXHTMLParserFailDate(){
         List<Product> products = XHTMLParser.parse(this.failDateExample);
+        Assert.assertEquals(0, products.size());
+    }
+
+    @Test
+    public void testXHTMLParserIncorrectFile(){
+        List<Product> products = XHTMLParser.parse(this.incorrectFile);
         Assert.assertEquals(0, products.size());
     }
 
