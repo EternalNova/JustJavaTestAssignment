@@ -32,7 +32,6 @@ public class XHTMLParser {
 
     public static List<Product> parse(String filePath) {
         val products = new ArrayList<Product>();
-        
         val logger = LoggerFactory.getLogger(XHTMLParser.class);
 
         try {
