@@ -5,18 +5,16 @@ import org.junit.Test;
 import com.example.test.bean.Product;
 import com.example.test.service.XHTMLParser;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.junit.Assert;
 import org.junit.Before;
 
-@Slf4j
 public class XHTMLParserTest {
 
     private String testFilePath;
     private String failPriceExample;
     private String failCurrencyExample;
     private String failCountExample;
+    private String failDateExample;
 
     @Before
     public void init() {
@@ -24,6 +22,7 @@ public class XHTMLParserTest {
         failPriceExample = getClass().getClassLoader().getResource("failPriceExample1.xhtml").getFile();
         failCurrencyExample = getClass().getClassLoader().getResource("failCurrencyExample.xhtml").getFile();
         failCountExample = getClass().getClassLoader().getResource("failCountExample.xhtml").getFile();
+        failDateExample = getClass().getClassLoader().getResource("failDateExample.xhtml").getFile();
     }
 
 
@@ -50,6 +49,12 @@ public class XHTMLParserTest {
     @Test
     public void testXHTMLParserFailCount(){
         List<Product> products = XHTMLParser.parse(this.failCountExample);
+        Assert.assertEquals(0, products.size());
+    }
+
+    @Test
+    public void testXHTMLParserFailDate(){
+        List<Product> products = XHTMLParser.parse(this.failDateExample);
         Assert.assertEquals(0, products.size());
     }
 
