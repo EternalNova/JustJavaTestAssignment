@@ -15,6 +15,11 @@ public class XHTMLParserTest {
     private String failCurrencyExample;
     private String failCountExample;
     private String failDateExample;
+    private String incorrectFile;
+    private String emptyPriceExample;
+    private String emptyCurrencyExample;
+    private String emptyCountExample;
+    private String emptyDateExample;
 
     @Before
     public void init() {
@@ -23,6 +28,11 @@ public class XHTMLParserTest {
         failCurrencyExample = getClass().getClassLoader().getResource("failCurrencyExample.xhtml").getFile();
         failCountExample = getClass().getClassLoader().getResource("failCountExample.xhtml").getFile();
         failDateExample = getClass().getClassLoader().getResource("failDateExample.xhtml").getFile();
+        incorrectFile = getClass().getClassLoader().getResource("incorrectFile.json").getFile();
+        emptyPriceExample = getClass().getClassLoader().getResource("emptyPriceExample.xhtml").getFile();
+        emptyCurrencyExample = getClass().getClassLoader().getResource("emptyCurrencyExample.xhtml").getFile();
+        emptyCountExample = getClass().getClassLoader().getResource("emptyCountExample.xhtml").getFile();
+        emptyDateExample = getClass().getClassLoader().getResource("emptyDateExample.xhtml").getFile();
     }
 
 
@@ -55,6 +65,36 @@ public class XHTMLParserTest {
     @Test
     public void testXHTMLParserFailDate(){
         List<Product> products = XHTMLParser.parse(this.failDateExample);
+        Assert.assertEquals(0, products.size());
+    }
+
+    @Test
+    public void testXHTMLParserIncorrectFile(){
+        List<Product> products = XHTMLParser.parse(this.incorrectFile);
+        Assert.assertEquals(0, products.size());
+    }
+
+    @Test
+    public void testXHTMLParserEmptyPrice(){
+        List<Product> products = XHTMLParser.parse(this.emptyPriceExample);
+        Assert.assertEquals(0, products.size());
+    }
+
+    @Test
+    public void testXHTMLParserEmptyCurrency(){
+        List<Product> products = XHTMLParser.parse(this.emptyCurrencyExample);
+        Assert.assertEquals(0, products.size());
+    }
+
+    @Test
+    public void testXHTMLParserEmptyCount(){
+        List<Product> products = XHTMLParser.parse(this.emptyCountExample);
+        Assert.assertEquals(0, products.size());
+    }
+    
+    @Test
+    public void testXHTMLParserEmptyDate(){
+        List<Product> products = XHTMLParser.parse(this.emptyDateExample);
         Assert.assertEquals(0, products.size());
     }
 
