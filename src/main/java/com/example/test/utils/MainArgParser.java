@@ -33,7 +33,7 @@ public class MainArgParser {
         try {
             cmd = parser.parse(options, args);
         } catch (ParseException exception) {
-            log.error("Error", exception);
+            log.error(exception.getMessage(), exception);
             formatter.printHelp("order", options);
         }
 

@@ -11,10 +11,18 @@ import org.junit.Before;
 public class XHTMLParserTest {
 
     private String testFilePath;
+    private String failPriceExample;
+    private String failCurrencyExample;
+    private String failCountExample;
+    private String failDateExample;
 
     @Before
     public void init() {
         testFilePath = getClass().getClassLoader().getResource("inputExample.xhtml").getFile();
+        failPriceExample = getClass().getClassLoader().getResource("failPriceExample1.xhtml").getFile();
+        failCurrencyExample = getClass().getClassLoader().getResource("failCurrencyExample.xhtml").getFile();
+        failCountExample = getClass().getClassLoader().getResource("failCountExample.xhtml").getFile();
+        failDateExample = getClass().getClassLoader().getResource("failDateExample.xhtml").getFile();
     }
 
 
@@ -25,4 +33,29 @@ public class XHTMLParserTest {
         Assert.assertEquals(1, (int) products.get(0).getId());
         Assert.assertEquals("Product 1", products.get(0).getName());
     }
+
+    @Test
+    public void testXHTMLParserFailPrice(){
+        List<Product> products = XHTMLParser.parse(this.failPriceExample);
+        Assert.assertEquals(0, products.size());
+    }
+
+    @Test
+    public void testXHTMLParserFailCurrency(){
+        List<Product> products = XHTMLParser.parse(this.failCurrencyExample);
+        Assert.assertEquals(0, products.size());
+    }
+
+    @Test
+    public void testXHTMLParserFailCount(){
+        List<Product> products = XHTMLParser.parse(this.failCountExample);
+        Assert.assertEquals(0, products.size());
+    }
+
+    @Test
+    public void testXHTMLParserFailDate(){
+        List<Product> products = XHTMLParser.parse(this.failDateExample);
+        Assert.assertEquals(0, products.size());
+    }
+
 }

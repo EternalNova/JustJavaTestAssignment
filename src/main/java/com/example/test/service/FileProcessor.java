@@ -2,16 +2,13 @@ package com.example.test.service;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
 
-import com.example.test.bean.GroupedProduct;
 import com.example.test.bean.MainArguments;
 import com.example.test.bean.Product;
 
+import lombok.val;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -52,7 +49,7 @@ public class FileProcessor {
             products = ProductFilter.filterProducts(products, config.getFilterEquation());
         }
         if (!config.getGroupByField().isEmpty()){
-            Map<String, GroupedProduct> groupedProducts = ProductGrouper.groupProductsByField(products, config.getGroupByField());
+            val groupedProducts = ProductGrouper.groupProductsByField(products, config.getGroupByField());
             writer.writeToJson(groupedProducts);
             return;
         }
@@ -60,7 +57,7 @@ public class FileProcessor {
     }
 
     private void processFolderInput(){
-        try (Stream<Path> paths = Files.walk(Paths.get(config.getInputFolder()))) {
+        try (val paths = Files.walk(Paths.get(config.getInputFolder()))) {
             paths
                 .filter(Files::isRegularFile)
                 .filter(
@@ -75,7 +72,7 @@ public class FileProcessor {
                     )
                 );
         } catch (IOException exception){
-            log.error(exception.getMessage());
+            log.error(exception.getMessage(), exception);
             this.config.printHelpMessage();
         }
     }

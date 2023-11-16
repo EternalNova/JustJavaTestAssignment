@@ -19,17 +19,17 @@ public class CurrencyConverter {
     public static void convertAll(Map<Currency, BigDecimal> prices){
         // Если нет цены в USD, то находим первую валюту и конвертируем ее в USD
         if (!prices.containsKey(Currency.USD)){
-            for (Map.Entry<Currency, BigDecimal> entry : prices.entrySet()) {
-                Currency entryCurrency = entry.getKey();
-                BigDecimal entryPrice = entry.getValue();
-                BigDecimal usdPrice = entryPrice.divide(USD2CurrencyRates.get(entryCurrency)); 
+            for (val entry : prices.entrySet()) {
+                val entryCurrency = entry.getKey();
+                val entryPrice = entry.getValue();
+                val usdPrice = entryPrice.divide(USD2CurrencyRates.get(entryCurrency)); 
                 prices.put(entryCurrency, usdPrice);
                 break;
             }
         }
         // Конвертируем USD во все остальные
         val usdPrice = prices.get(Currency.USD);
-        for (Currency currency : Currency.values()){
+        for (val currency : Currency.values()){
             if (currency == Currency.USD){
                 continue;
             }
