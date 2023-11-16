@@ -52,9 +52,9 @@ public class XHTMLParser {
                     products.add(Product.builder()
                         .id(Integer.parseInt(orderElement.attr("id")))
                         .name(orderElement.select(".name").text())
-                        .price(Collections.singletonMap(
-                            currency,
-                            new BigDecimal(orderElement.select(".price").text())))
+                        .price(new HashMap<Currency, BigDecimal>(){{
+                            put(currency, new BigDecimal(orderElement.select(".price").text()));
+                        }})
                         .category(orderElement.select(".category").text())
                         .count(Integer.parseInt(orderElement.select(".count").text()))
                         .store(orderElement.select(".store_name").text())
