@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 
 public class XHTMLParser {
@@ -40,19 +41,31 @@ public class XHTMLParser {
             val orderElements = doc.select(".order");
 
             for (val orderElement : orderElements) {
-                val dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-                                    .withLocale(Locale.getDefault());
-                products.add(Product.builder()
-                    .id(Integer.parseInt(orderElement.attr("id")))
-                    .name(orderElement.select(".name").text())
-                    .price(Collections.singletonMap(
-                        currencyMap.get(orderElement.select(".currency").text()),
-                        new BigDecimal(orderElement.select(".price").text())))
-                    .category(orderElement.select(".category").text())
-                    .count(Integer.parseInt(orderElement.select(".count").text()))
-                    .store(orderElement.select(".store_name").text())
-                    .date(LocalDate.parse(orderElement.select(".date").text(), dtf))
-                    .build());
+                try {
+                    val dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+                                .withLocale(Locale.getDefault());
+                    val currency = currencyMap.get(orderElement.select(".currency").text());
+                    if (currency == null){
+                        throw new NoSuchElementException("This currency not supported");
+                    }
+                    products.add(Product.builder()
+                        .id(Integer.parseInt(orderElement.attr("id")))
+                        .name(orderElement.select(".name").text())
+                        .price(Collections.singletonMap(
+                            currency,
+                            new BigDecimal(orderElement.select(".price").text())))
+                        .category(orderElement.select(".category").text())
+                        .count(Integer.parseInt(orderElement.select(".count").text()))
+                        .store(orderElement.select(".store_name").text())
+                        .date(LocalDate.parse(orderElement.select(".date").text(), dtf))
+                        .build());
+                }
+                catch (NumberFormatException exception){
+                    logger.error("Can't parse product: "+exception.getMessage(), exception);
+                }
+                catch (NoSuchElementException exception){
+                    logger.error("Can't parse product: "+exception.getMessage(), exception);
+                } 
             }
 
         } catch (IOException exception) {
