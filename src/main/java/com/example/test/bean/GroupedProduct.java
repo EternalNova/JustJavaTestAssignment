@@ -9,6 +9,7 @@ import com.example.test.enums.Currency;
 import com.google.gson.annotations.SerializedName;
 
 import lombok.Data;
+import lombok.val;
 
 @Data
 public class GroupedProduct {
@@ -24,8 +25,8 @@ public class GroupedProduct {
         this.productList = productList;
         this.totalOrders = productList.size();
         this.totalPriceSum = new HashMap<>(); 
-        for (Currency currency : Currency.values()) {
-            BigDecimal totalPriceCurrency = productList.stream()
+        for (val currency : Currency.values()) {
+            val totalPriceCurrency = productList.stream()
                 .filter(product -> product.getPrice().containsKey(currency))
                 .map(product -> product.getPriceCurrency(currency).multiply(BigDecimal.valueOf(product.getCount())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);

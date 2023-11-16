@@ -1,6 +1,5 @@
 package com.example.test.service;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -32,7 +31,7 @@ public class JsonWriter {
     }
 
     public void writeToJson(Object data) {
-        try (BufferedWriter writer = Files.newBufferedWriter(this.fullPath, StandardCharsets.UTF_8)) {
+        try (val writer = Files.newBufferedWriter(this.fullPath, StandardCharsets.UTF_8)) {
             val gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
