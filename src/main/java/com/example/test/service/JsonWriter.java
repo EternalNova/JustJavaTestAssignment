@@ -25,7 +25,7 @@ public class JsonWriter {
             Files.createDirectories(Paths.get(outputPath));
             isFolderCreated = true;
         } catch (IOException exception){
-            log.error(exception.getMessage());
+            log.error(exception.getMessage(), exception);
             isFolderCreated = false;
         }
     }
@@ -38,7 +38,7 @@ public class JsonWriter {
                 .create();
             gson.toJson(data, writer);
         } catch (IOException exception) {
-            log.error(exception.getMessage());
+            log.error(exception.getMessage(), exception);
         }
     }
 

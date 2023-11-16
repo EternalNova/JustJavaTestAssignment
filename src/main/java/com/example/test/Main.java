@@ -16,7 +16,7 @@ public class Main {
         try{
             fProcessor.processInput();
         } catch (Exception exception){
-            log.error(exception.getMessage());
+            log.error(exception.getMessage(), exception);
             config.printHelpMessage();
         }
 

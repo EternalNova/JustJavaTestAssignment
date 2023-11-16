@@ -72,7 +72,7 @@ public class FileProcessor {
                     )
                 );
         } catch (IOException exception){
-            log.error(exception.getMessage());
+            log.error(exception.getMessage(), exception);
             this.config.printHelpMessage();
         }
     }

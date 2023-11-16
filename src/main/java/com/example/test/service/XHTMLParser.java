@@ -56,7 +56,7 @@ public class XHTMLParser {
             }
 
         } catch (IOException exception) {
-            logger.error(exception.getMessage());
+            logger.error(exception.getMessage(), exception);
         }
 
         return products;
